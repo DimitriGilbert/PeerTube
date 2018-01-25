@@ -24,6 +24,7 @@ import { RestExtractor, RestService } from './rest'
 import { UserService } from './users'
 import { VideoAbuseService } from './video-abuse'
 import { VideoBlacklistService } from './video-blacklist'
+import { VideoChannelService } from './video-channel'
 import { VideoMiniatureComponent } from './video/video-miniature.component'
 import { VideoThumbnailComponent } from './video/video-thumbnail.component'
 import { VideoService } from './video/video.service'
@@ -91,6 +92,7 @@ import { VideoService } from './video/video.service'
     RestService,
     VideoAbuseService,
     VideoBlacklistService,
+    VideoChannelService,
     UserService,
     VideoService,
     MarkdownService
