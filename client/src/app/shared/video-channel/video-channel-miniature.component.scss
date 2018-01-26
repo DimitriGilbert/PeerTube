@@ -1,0 +1,41 @@
+@import '_variables';
+@import '_mixins';
+
+.video-channel-miniature {
+  display: inline-block;
+  padding-right: 15px;
+  margin-bottom: 30px;
+  height: 175px;
+  vertical-align: top;
+
+  .video-channel-miniature-information {
+    width: 200px;
+    margin-top: 2px;
+    line-height: normal;
+
+    .video-channel-miniature-name {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: color 0.2s;
+      font-size: 16px;
+      font-weight: $font-semibold;
+      color: #000;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &.blur-filter {
+        filter: blur(3px);
+        padding-left: 4px;
+      }
+    }
+
+    .video-channel-miniature-created-at {
+      display: block;
+      font-size: 13px;
+    }
+  }
+}

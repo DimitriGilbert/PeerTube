@@ -22,7 +22,7 @@ export class VideoChannelService {
     private restExtractor: RestExtractor
   ) {}
   
-  getChannels (videoPagination: ComponentPagination): Observable<{ channels: VideoChannelServerModel[], totalChannel: number}> {
+  getChannels (videoPagination: ComponentPagination): Observable<{ channels: VideoChannel[], totalChannels: number}> {
     const pagination = this.restService.componentPaginationToRestPagination(videoPagination)
     
     let params = new HttpParams()

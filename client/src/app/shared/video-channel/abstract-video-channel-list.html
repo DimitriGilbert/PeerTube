@@ -1,0 +1,23 @@
+<div class="margin-content">
+  <div class="title-page title-page-single">
+    {{ titlePage }}
+  </div>
+
+  <div *ngIf="pagination.totalItems === 0">No results.</div>
+
+  <div
+    class="channels"
+    infiniteScroll
+    [infiniteScrollUpDistance]="1.5"
+    [infiniteScrollDistance]="0.5"
+    (scrolled)="onNearOfBottom()"
+    (scrolledUp)="onNearOfTop()"
+  >
+    <my-video-channel-miniature
+      class="ng-animate"
+      *ngFor="let channel of channels"
+        [channel]="channel"
+    >
+    </my-video-channel-miniature>
+  </div>
+</div>

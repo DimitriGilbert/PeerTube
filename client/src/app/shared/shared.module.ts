@@ -27,6 +27,7 @@ import { VideoBlacklistService } from './video-blacklist'
 import { VideoChannelService } from './video-channel'
 import { VideoMiniatureComponent } from './video/video-miniature.component'
 import { VideoThumbnailComponent } from './video/video-thumbnail.component'
+import { VideoChannelMiniatureComponent } from './video-channel/video-channel-miniature.component'
 import { VideoService } from './video/video.service'
 
 @NgModule({
@@ -51,6 +52,7 @@ import { VideoService } from './video/video.service'
     LoaderComponent,
     VideoThumbnailComponent,
     VideoMiniatureComponent,
+    VideoChannelMiniatureComponent,
     DeleteButtonComponent,
     EditButtonComponent,
     NumberFormatterPipe,
@@ -77,6 +79,7 @@ import { VideoService } from './video/video.service'
     LoaderComponent,
     VideoThumbnailComponent,
     VideoMiniatureComponent,
+    VideoChannelMiniatureComponent,
     DeleteButtonComponent,
     EditButtonComponent,
     MarkdownTextareaComponent,

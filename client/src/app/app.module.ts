@@ -18,6 +18,7 @@ import { MenuComponent } from './menu'
 import { SharedModule } from './shared'
 import { SignupModule } from './signup'
 import { VideosModule } from './videos'
+import { ChannelsModule } from '@app/channels/channels.module'
 
 export function metaFactory (): MetaLoader {
   return new MetaStaticLoader({
@@ -56,6 +57,7 @@ export function metaFactory (): MetaLoader {
     SharedModule,
     VideosModule,
     AboutModule,
+    ChannelsModule,
 
     MetaModule.forRoot({
       provide: MetaLoader,

@@ -2,6 +2,7 @@ import { VideoChannel as VideoChannelServerModel } from '../../../../../shared/m
 import { Avatar } from '../../../../../shared/models/avatars/avatar.model'
 import { Video as VideoServerModel } from '../../../../../shared/models/videos/video.model'
 import { Video } from '../video/video.model'
+import { getAbsoluteAPIUrl } from '@app/shared/misc/utils'
 
 export class VideoChannel implements VideoChannelServerModel {
   id: number
@@ -68,5 +69,13 @@ export class VideoChannel implements VideoChannelServerModel {
         this.videos.push(new Video(video))
       }
     }
+  }
+
+  getAvatarPath (): string {
+    const absoluteAPIUrl = getAbsoluteAPIUrl()
+
+    if (this.avatar) return absoluteAPIUrl + this.avatar.path
+
+    return window.location.origin + '/client/assets/images/default-avatar.png'
   }
 }

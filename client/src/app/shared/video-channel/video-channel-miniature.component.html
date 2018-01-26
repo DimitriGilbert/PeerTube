@@ -1,0 +1,16 @@
+<div class="video-channel-miniature">
+
+  <div class="video-channel-miniature-information">
+    <span class="video-channel-miniature-name">
+      <a
+        class="video-channel-miniature-name"
+        [routerLink]="['/channel/detail', channel.uuid]"
+        [attr.title]="channel.name"
+      >
+          {{ channel.displayName }}
+      </a>
+    </span>
+
+    <span class="video-miniature-created-at">{{ channel.createdAt | myFromNow }}</span>
+  </div>
+</div>
