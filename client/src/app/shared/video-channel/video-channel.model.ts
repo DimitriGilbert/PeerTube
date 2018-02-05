@@ -32,19 +32,19 @@ export class VideoChannel implements VideoChannelServerModel {
     this.host = hash.host
     this.followingCount = hash.followingCount
     this.followersCount = hash.followersCount
-    this.createdAt = new Date(hash.createdAt.toString());
-    this.updatedAt = new Date(hash.updatedAt.toString());
+    this.createdAt = new Date(hash.createdAt.toString())
+    this.updatedAt = new Date(hash.updatedAt.toString())
     this.avatar = hash.avatar
     this.displayName = hash.displayName
     this.description = hash.description
     this.isLocal = hash.isLocal
-    
+
     if (hash.owner !== undefined
       && hash.owner !== null
     ) {
       this.owner = {
-        name:'',
-        uuid:''
+        name: '',
+        uuid: ''
       }
 
       if (hash.owner.name !== undefined

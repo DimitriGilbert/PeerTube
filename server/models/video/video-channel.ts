@@ -162,6 +162,11 @@ export class VideoChannelModel extends Model<VideoChannelModel> {
       })
   }
 
+  static listVideosForApi (id: number, start: number, count: number, sort: string) {
+    return VideoModel
+      .listChannelVideosForApi(id, start, count, sort)
+  }
+
   static listByAccount (accountId: number) {
     const query = {
       order: [ getSort('createdAt') ],

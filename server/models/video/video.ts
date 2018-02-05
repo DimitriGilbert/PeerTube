@@ -628,6 +628,40 @@ export class VideoModel extends Model<VideoModel> {
     })
   }
 
+  static async listChannelVideosForApi (channelId: number, start: number, count: number, sort: string) {
+    const query = {
+      offset: start,
+      limit: count,
+      order: [ getSort(sort) ],
+      include: [
+        {
+          model: VideoChannelModel,
+          where: {
+            id: channelId
+          },
+          required: true,
+          include: [
+            {
+              model: AccountModel,
+              required: true
+            }
+          ]
+        }
+      ]
+    }
+
+    const serverActor = await getServerActor()
+
+    return VideoModel.scope({ method: [ ScopeNames.AVAILABLE_FOR_LIST, serverActor.id ] })
+      .findAndCountAll(query).then(({ rows, count }) => {
+        return {
+          data: rows,
+          total: count
+        }
+      }
+    )
+  }
+
   static async listForApi (start: number, count: number, sort: string) {
     const query = {
       offset: start,

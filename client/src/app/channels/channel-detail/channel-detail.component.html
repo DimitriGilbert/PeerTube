@@ -1,0 +1,41 @@
+<div class="row">
+  <!-- Video information -->
+  <div *ngIf="channel" class="margin-content video-bottom">
+    <div class="channel-info">
+      <div class="channel-info-first-row">
+        <div>
+          <div class="channel-info-name">{{ channel.displayName }}</div>
+
+          <div class="video-info-date">
+            {{ channel.createdAt }}
+          </div>
+
+          <div class="video-info-following">
+            Following {{ channel.followingCount }} people.
+          </div>
+
+          <div class="video-info-follower">
+            Followed by {{ channel.followersCount }} people.
+          </div>
+
+        </div>
+
+        <div class="channel-actions-rates">
+          <div class="channel-actions">
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="channel-info-description">
+        <div class="channel-info-description-html" [innerHTML]=""></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <my-video-channel-videos *ngIf="channel" [channelId]="channel.id"></my-video-channel-videos>
+</div>

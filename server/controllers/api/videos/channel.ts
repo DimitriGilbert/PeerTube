@@ -9,8 +9,8 @@ import { sendUpdateActor } from '../../../lib/activitypub/send'
 import { createVideoChannel } from '../../../lib/video-channel'
 import {
   asyncMiddleware, authenticate, listVideoAccountChannelsValidator, paginationValidator, setDefaultSort, setDefaultPagination,
-  videoChannelsAddValidator, videoChannelsGetValidator, videoChannelsRemoveValidator, videoChannelsSortValidator,
-  videoChannelsUpdateValidator
+  videoChannelsAddValidator, videoChannelsGetValidator, videoChannelVideosGetValidator, videoChannelsRemoveValidator,
+  videoChannelsSortValidator, videoChannelVideosSortValidator, videoChannelsUpdateValidator
 } from '../../../middlewares'
 import { AccountModel } from '../../../models/account/account'
 import { VideoChannelModel } from '../../../models/video/video-channel'
@@ -46,6 +46,15 @@ videoChannelRouter.delete('/channels/:id',
   authenticate,
   asyncMiddleware(videoChannelsRemoveValidator),
   asyncMiddleware(removeVideoChannelRetryWrapper)
+)
+
+videoChannelRouter.get('/channels/:id/videos',
+  paginationValidator,
+  videoChannelVideosSortValidator,
+  setDefaultSort,
+  setDefaultPagination,
+  asyncMiddleware(videoChannelVideosGetValidator),
+  asyncMiddleware(listVideoChannelVideos)
 )
 
 videoChannelRouter.get('/channels/:id',
@@ -174,4 +183,10 @@ async function getVideoChannel (req: express.Request, res: express.Response, nex
   const videoChannelWithVideos = await VideoChannelModel.loadAndPopulateAccountAndVideos(res.locals.videoChannel.id)
 
   return res.json(videoChannelWithVideos.toFormattedJSON())
+}
+
+async function listVideoChannelVideos (req: express.Request, res: express.Response, next: express.NextFunction) {
+  const resultList = await VideoChannelModel.listVideosForApi(res.locals.videoChannel.id, req.query.start, req.query.count, req.query.sort)
+
+  return res.json(getFormattedObjects(resultList.data, resultList.total))
 }

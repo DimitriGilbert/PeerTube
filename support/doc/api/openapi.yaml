@@ -693,6 +693,28 @@ paths:
       responses:
         '204':
           description: successful operation
+  "/videos/channels/{id}/videos":
+    get:
+      tags:
+        - VideoChannel
+        Video
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: 'The channel id '
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Video
   /videos/accounts/{accountId}/channels:
     get:
       tags:
