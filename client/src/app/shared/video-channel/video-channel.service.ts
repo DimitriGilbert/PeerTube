@@ -37,7 +37,8 @@ export class VideoChannelService {
 
   getChannel (id: number): Observable< VideoChannel > {
     return this.authHttp
-      .get(VideoChannelService.BASE_CHANNELS_URL + '/' + id)
+      .get<VideoChannelServerModel>(VideoChannelService.BASE_CHANNELS_URL + '/' + id)
+      .map(channelHash => new VideoChannel(channelHash))
       .catch((res) => this.restExtractor.handleError(res))
   }
 

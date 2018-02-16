@@ -1,13 +1,16 @@
 <div class="row">
   <!-- Video information -->
-  <div *ngIf="channel" class="margin-content video-bottom">
+  <div *ngIf="channel" class="margin-content channel">
+    <img [src]="getAvatarUrl()" alt="Avatar" />
     <div class="channel-info">
       <div class="channel-info-first-row">
         <div>
-          <div class="channel-info-name">{{ channel.displayName }}</div>
+          <div class="channel-info-name">
+            {{ channel.displayName }}
+          </div>
 
           <div class="video-info-date">
-            {{ channel.createdAt }}
+            Created {{ channel.createdAt | myFromNow }}
           </div>
 
           <div class="video-info-following">
@@ -29,7 +32,7 @@
       </div>
 
       <div class="channel-info-description">
-        <div class="channel-info-description-html" [innerHTML]=""></div>
+        <div class="channel-info-description-html" [innerHTML]="descriptionHTML"></div>
 
       </div>
 

@@ -7,6 +7,7 @@ import { VideoChannelService } from '@app/shared'
 import { VideoChannel } from '@app/shared/video-channel/video-channel.model'
 import { Video } from '@app/shared/video/video.model'
 import { error } from 'util'
+import { MarkdownService } from '@app/videos/shared'
 
 @Component({
   selector: 'my-channel-detail',
@@ -14,6 +15,7 @@ import { error } from 'util'
   styleUrls: ['./channel-detail.component.scss']
 })
 export class ChannelDetailComponent implements OnInit {
+  descriptionHTML: string;
   channelNotFound: boolean
   channel: VideoChannel
   channelVideosObservable: { videos: Video[], totalVideos: number}
@@ -22,7 +24,8 @@ export class ChannelDetailComponent implements OnInit {
   constructor (
     private route: ActivatedRoute,
     private router: Router,
-    private channelService: VideoChannelService
+    private channelService: VideoChannelService,
+    private markdownService: MarkdownService
   ) { }
 
   ngOnInit () {
@@ -32,6 +35,7 @@ export class ChannelDetailComponent implements OnInit {
       this.channelService.getChannel(id).subscribe(
         channel => {
           this.channel = channel
+          this.descriptionHTML = this.markdownService.markdownToHTML(this.channel.description)
         },
         error => {
           this.channelNotFound = true
@@ -40,6 +44,13 @@ export class ChannelDetailComponent implements OnInit {
       )
     })
 
+  }
+
+  getAvatarUrl () {
+    if (this.channel) {
+      return this.channel.getAvatarPath()
+    }
+    return ''
   }
 
 }
