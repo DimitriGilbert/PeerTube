@@ -17,6 +17,7 @@ export class VideoChannel implements VideoChannelServerModel {
   avatar: Avatar
   displayName: string
   description: string
+  support: string
   isLocal: boolean
   owner?: {
     name: string
@@ -36,6 +37,7 @@ export class VideoChannel implements VideoChannelServerModel {
     this.updatedAt = new Date(hash.updatedAt.toString())
     this.avatar = hash.avatar
     this.displayName = hash.displayName
+    this.support = hash.support
     this.description = hash.description
     this.isLocal = hash.isLocal
 

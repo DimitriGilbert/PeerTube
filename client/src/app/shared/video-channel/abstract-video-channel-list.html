@@ -7,11 +7,7 @@
 
   <div
     class="channels"
-    infiniteScroll
-    [infiniteScrollUpDistance]="1.5"
-    [infiniteScrollDistance]="0.5"
-    (scrolled)="onNearOfBottom()"
-    (scrolledUp)="onNearOfTop()"
+    myInfiniteScroller
   >
     <my-video-channel-miniature
       class="ng-animate"
