@@ -35,7 +35,9 @@ export class ChannelDetailComponent implements OnInit {
       this.channelService.getChannel(id).subscribe(
         channel => {
           this.channel = channel
-          this.descriptionHTML = this.markdownService.markdownToHTML(this.channel.description)
+          if (this.channel.description) {
+            this.descriptionHTML = this.markdownService.markdownToHTML(this.channel.description)
+          }
         },
         error => {
           this.channelNotFound = true

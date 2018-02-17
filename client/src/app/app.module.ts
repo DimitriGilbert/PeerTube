@@ -19,6 +19,7 @@ import { SharedModule } from './shared'
 import { SignupModule } from './signup'
 import { VideosModule } from './videos'
 import { ChannelsModule } from '@app/channels/channels.module'
+import { UsersModule } from '@app/users/users.module'
 
 export function metaFactory (): MetaLoader {
   return new MetaStaticLoader({
@@ -58,6 +59,7 @@ export function metaFactory (): MetaLoader {
     VideosModule,
     AboutModule,
     ChannelsModule,
+    UsersModule,
 
     MetaModule.forRoot({
       provide: MetaLoader,
