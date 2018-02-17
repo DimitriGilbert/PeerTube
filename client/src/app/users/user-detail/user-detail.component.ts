@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { User, UserService } from '@app/shared'
 import { Subscription } from 'rxjs/Subscription';
-import { Router, ActivatedRoute } from '@angular/router';
-import { UsersComponent } from '@app/users/users.component';
+import { Router, ActivatedRoute } from '@angular/router'
+import { UsersComponent } from '@app/users/users.component'
 
 @Component({
   selector: 'my-user-detail',

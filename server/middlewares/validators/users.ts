@@ -150,6 +150,19 @@ const usersGetValidator = [
   }
 ]
 
+const usersVideosGetValidator = [
+  param('id').custom(isIdOrUUIDValid).not().isEmpty().withMessage('Should have a valid id'),
+
+  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    logger.debug('Checking videoChannelsGet parameters', { parameters: req.params })
+
+    if (areValidationErrors(req, res)) return
+    if (!await checkUserIdExist(req.params.id, res)) return
+
+    return next()
+  }
+]
+
 const usersVideoRatingValidator = [
   param('videoId').custom(isIdOrUUIDValid).not().isEmpty().withMessage('Should have a valid video id'),
 
@@ -230,6 +243,7 @@ export {
   usersVideoRatingValidator,
   ensureUserRegistrationAllowed,
   usersGetValidator,
+  usersVideosGetValidator,
   usersUpdateMyAvatarValidator,
   usersAskResetPasswordValidator,
   usersResetPasswordValidator

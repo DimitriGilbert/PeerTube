@@ -1,15 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { NotificationsService } from 'angular2-notifications'
+import { AbstractVideoList } from '../../shared/video/abstract-video-list';
+import { SortField } from '../../shared/video/sort-field.type';
+import { AuthService } from '@app/core';
+import { UserService } from '../../shared';
 
 @Component({
-  selector: 'app-user-videos',
-  templateUrl: './user-videos.component.html',
-  styleUrls: ['./user-videos.component.scss']
+  selector: 'my-user-videos-list',
+  styleUrls: [ '../../shared/video/abstract-video-list.scss' ],
+  templateUrl: '../../shared/video/abstract-video-list.html'
 })
-export class UserVideosComponent implements OnInit {
+export class UserVideosComponent extends AbstractVideoList implements OnInit {
+  titlePage = 'User\'s videos'
+  currentRoute = '/user/:id/videos'
+  sort: SortField = '-createdAt'
 
-  constructor() { }
+  @Input()
+  userId: number
 
-  ngOnInit() {
+  constructor (
+    protected router: Router,
+    protected route: ActivatedRoute,
+    protected notificationsService: NotificationsService,
+    protected authService: AuthService,
+    private UserService: UserService
+  ) {
+    super()
   }
 
+  ngOnInit () {
+    super.ngOnInit()
+  }
+
+  getVideosObservable () {
+    return this.UserService.getUserVideos(this.userId)
+  }
 }

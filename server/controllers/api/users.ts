@@ -24,6 +24,7 @@ import {
   token,
   usersAddValidator,
   usersGetValidator,
+  usersVideosGetValidator,
   usersRegisterValidator,
   usersRemoveValidator,
   usersSortValidator,
@@ -62,7 +63,7 @@ usersRouter.get('/me/videos',
   videosSortValidator,
   setDefaultSort,
   setDefaultPagination,
-  asyncMiddleware(getUserVideos)
+  asyncMiddleware(getMeVideos)
 )
 
 usersRouter.get('/me/videos/:videoId/rating',
@@ -84,6 +85,15 @@ usersRouter.get('/',
 usersRouter.get('/:id',
   asyncMiddleware(usersGetValidator),
   getUser
+)
+
+usersRouter.get('/:id/videos',
+  asyncMiddleware(usersVideosGetValidator),
+  paginationValidator,
+  videosSortValidator,
+  setDefaultSort,
+  setDefaultPagination,
+  asyncMiddleware(getUserVideos)
 )
 
 usersRouter.post('/',
@@ -147,7 +157,7 @@ export {
 
 // ---------------------------------------------------------------------------
 
-async function getUserVideos (req: express.Request, res: express.Response, next: express.NextFunction) {
+async function getMeVideos (req: express.Request, res: express.Response, next: express.NextFunction) {
   const user = res.locals.oauth.token.User as UserModel
   const resultList = await VideoModel.listUserVideosForApi(user.id ,req.query.start, req.query.count, req.query.sort)
 
@@ -237,6 +247,12 @@ async function getUserVideoQuotaUsed (req: express.Request, res: express.Respons
 
 function getUser (req: express.Request, res: express.Response, next: express.NextFunction) {
   return res.json((res.locals.user as UserModel).toFormattedJSON())
+}
+
+async function getUserVideos (req: express.Request, res: express.Response, next: express.NextFunction) {
+  const resultList = await VideoModel.listUserVideosForApi(res.locals.user.id ,req.query.start, req.query.count, req.query.sort)
+
+  return res.json(getFormattedObjects(resultList.data, resultList.total))
 }
 
 async function getUserVideoRating (req: express.Request, res: express.Response, next: express.NextFunction) {

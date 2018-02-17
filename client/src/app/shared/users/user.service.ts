@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/map'
-import { UserCreate, UserUpdateMe } from '../../../../../shared'
+import { User, UserCreate, UserUpdateMe, ResultList, Video as VideoServerModel } from '../../../../../shared'
 import { environment } from '../../../environments/environment'
 import { RestExtractor } from '../rest'
-import { User } from '@app/shared';
+import { Video } from '@app/shared/video/video.model'
 
 @Injectable()
 export class UserService {
@@ -78,5 +78,23 @@ export class UserService {
   getUser (userId: number) {
     return this.authHttp.get<User>(UserService.BASE_USERS_URL + userId)
                         .catch(err => this.restExtractor.handleError(err))
+  }
+
+  getUserVideos (userId: number) {
+    return this.authHttp.get(UserService.BASE_USERS_URL + userId + '/videos')
+                        .map(this.extractVideos)
+                        .catch(err => this.restExtractor.handleError(err))
+  }
+
+  private extractVideos (result: ResultList<VideoServerModel>) {
+    const videosJson = result.data
+    const totalVideos = result.total
+    const videos = []
+
+    for (const videoJson of videosJson) {
+      videos.push(new Video(videoJson))
+    }
+
+    return { videos, totalVideos }
   }
 }
