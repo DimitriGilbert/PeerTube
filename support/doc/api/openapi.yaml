@@ -217,6 +217,36 @@ paths:
       responses:
         '204':
           description: successful operation
+  '/users/{id}/videos':
+    get:
+      tags:
+        - User
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Video'
+  '/users/{id}/channels':
+    get:
+      tags:
+        - User
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Channel'
   /users/me:
     get:
       tags:
