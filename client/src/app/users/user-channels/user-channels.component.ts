@@ -4,7 +4,7 @@ import { NotificationsService } from 'angular2-notifications'
 import { AuthService } from '../../core/auth'
 import { AbstractVideoChannelList } from '../../shared/video-channel/abstract-video-channel-list'
 import { SortField } from '../../shared/video-channel/sort-field.type'
-import { UserService } from '../../shared/users/user.service';
+import { UserService } from '../../shared/users/user.service'
 
 @Component({
   selector: 'my-user-channels',

@@ -8,7 +8,7 @@ import { User as UserServerModel, UserCreate, UserUpdateMe, ResultList, Video as
 import { Video } from '@app/shared/video/video.model'
 import { VideoChannel as VideoChannelServerModel } from '../../../../../shared/models/videos/video-channel.model'
 import { VideoChannel } from '@app/shared/video-channel/video-channel.model'
-import { User } from './user.model';
+import { User } from './user.model'
 
 @Injectable()
 export class UserService {
@@ -80,7 +80,7 @@ export class UserService {
 
   getUser (userId: number) {
     return this.authHttp.get<UserServerModel>(UserService.BASE_USERS_URL + userId)
-                        .map(userData => { return new User(userData)})
+                        .map(userData => { return new User(userData) })
                         .catch(err => this.restExtractor.handleError(err))
   }
 

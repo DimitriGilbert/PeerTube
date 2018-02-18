@@ -15,7 +15,7 @@ import { MarkdownService } from '@app/videos/shared'
   styleUrls: ['./channel-detail.component.scss']
 })
 export class ChannelDetailComponent implements OnInit {
-  descriptionHTML: string;
+  descriptionHTML: string
   channelNotFound: boolean
   channel: VideoChannel
   channelVideosObservable: { videos: Video[], totalVideos: number}

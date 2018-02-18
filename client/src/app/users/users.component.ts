@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute } from '@angular/router'
-import { UserService, User } from '@app/shared';
-import { Subscription } from 'rxjs/Subscription';
-import { error } from 'util';
+import { UserService, User } from '@app/shared'
+import { Subscription } from 'rxjs/Subscription'
+import { error } from 'util'
 
 @Component({
-  selector: 'app-users',
+  selector: 'my-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
@@ -20,7 +20,7 @@ export class UsersComponent implements OnInit {
     protected userService: UserService
   ) {}
 
-  ngOnInit() {
+  ngOnInit () {
     this.route.params.subscribe(routeParams => {
       this.userId = routeParams['id']
       this.userSubsrciption = this.userService.getUser(this.userId)

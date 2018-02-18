@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 import { MetaGuard } from '@ngx-meta/core'
 import { UsersComponent } from './users.component'
@@ -8,7 +8,7 @@ import { UserChannelsComponent } from './user-channels/user-channels.component'
 
 const routes: Routes = [
   {
-    path: "users/:id",
+    path: 'users/:id',
     component: UsersComponent,
     canActivateChild: [ MetaGuard ],
     children: [

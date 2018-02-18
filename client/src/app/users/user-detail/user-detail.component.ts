@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { User, UserService } from '@app/shared'
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription'
 import { Router, ActivatedRoute } from '@angular/router'
 import { UsersComponent } from '@app/users/users.component'
 
@@ -21,7 +21,7 @@ export class UserDetailComponent implements OnInit {
     protected userService: UserService
   ) {}
 
-  ngOnInit() {
+  ngOnInit () {
     this.userSubsrciption = this.userService.getUser(this.userId)
       .subscribe(
         user => { this.user = user },
