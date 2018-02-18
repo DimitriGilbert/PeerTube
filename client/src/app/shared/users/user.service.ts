@@ -2,10 +2,13 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/map'
-import { User, UserCreate, UserUpdateMe, ResultList, Video as VideoServerModel } from '../../../../../shared'
 import { environment } from '../../../environments/environment'
 import { RestExtractor } from '../rest'
+import { User as UserServerModel, UserCreate, UserUpdateMe, ResultList, Video as VideoServerModel } from '../../../../../shared'
 import { Video } from '@app/shared/video/video.model'
+import { VideoChannel as VideoChannelServerModel } from '../../../../../shared/models/videos/video-channel.model'
+import { VideoChannel } from '@app/shared/video-channel/video-channel.model'
+import { User } from './user.model';
 
 @Injectable()
 export class UserService {
@@ -76,13 +79,20 @@ export class UserService {
   }
 
   getUser (userId: number) {
-    return this.authHttp.get<User>(UserService.BASE_USERS_URL + userId)
+    return this.authHttp.get<UserServerModel>(UserService.BASE_USERS_URL + userId)
+                        .map(userData => { return new User(userData)})
                         .catch(err => this.restExtractor.handleError(err))
   }
 
   getUserVideos (userId: number) {
     return this.authHttp.get(UserService.BASE_USERS_URL + userId + '/videos')
                         .map(this.extractVideos)
+                        .catch(err => this.restExtractor.handleError(err))
+  }
+
+  getUserChannels (userId: number) {
+    return this.authHttp.get(environment.apiUrl + '/api/v1/videos/accounts/' + userId + '/channels')
+                        .map(this.extractChannels)
                         .catch(err => this.restExtractor.handleError(err))
   }
 
@@ -96,5 +106,17 @@ export class UserService {
     }
 
     return { videos, totalVideos }
+  }
+
+  private extractChannels (result: ResultList<VideoChannelServerModel>) {
+    const videoChannelsJson = result.data
+    const totalChannels = result.total
+    const channels = []
+
+    for (const videoChannelJson of videoChannelsJson) {
+      channels.push(new VideoChannel(videoChannelJson))
+    }
+
+    return { channels, totalChannels }
   }
 }

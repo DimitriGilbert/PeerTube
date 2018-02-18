@@ -5,6 +5,8 @@ import { AbstractVideoList } from '../../shared/video/abstract-video-list';
 import { SortField } from '../../shared/video/sort-field.type';
 import { AuthService } from '@app/core';
 import { UserService } from '../../shared';
+import { User } from '@app/shared/users';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'my-user-videos-list',
@@ -15,8 +17,6 @@ export class UserVideosComponent extends AbstractVideoList implements OnInit {
   titlePage = 'User\'s videos'
   currentRoute = '/user/:id/videos'
   sort: SortField = '-createdAt'
-
-  @Input()
   userId: number
 
   constructor (
@@ -24,16 +24,19 @@ export class UserVideosComponent extends AbstractVideoList implements OnInit {
     protected route: ActivatedRoute,
     protected notificationsService: NotificationsService,
     protected authService: AuthService,
-    private UserService: UserService
+    private userService: UserService
   ) {
     super()
   }
 
   ngOnInit () {
+    this.route.parent.params.subscribe(routeParams => {
+      this.userId = routeParams['id']
+    })
     super.ngOnInit()
   }
 
   getVideosObservable () {
-    return this.UserService.getUserVideos(this.userId)
+    return this.userService.getUserVideos(this.userId)
   }
 }

@@ -9,22 +9,33 @@ import { UsersComponent } from '@app/users/users.component'
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent extends UsersComponent implements OnInit {
+export class UserDetailComponent implements OnInit {
+  @Input()
+  userId: number
+  user: User
+  userSubsrciption: Subscription
 
-  constructor(
+  constructor (
     protected route: ActivatedRoute,
     protected router: Router,
     protected userService: UserService
-  ) {
-    super(
-      route,
-      router,
-      userService
-    );
-  }
+  ) {}
 
   ngOnInit() {
-    super.ngOnInit();
+    this.userSubsrciption = this.userService.getUser(this.userId)
+      .subscribe(
+        user => { this.user = user },
+        error => {
+          console.error(error)
+        }
+      )
+
+  }
+
+  public getAvatarUrl () {
+    if (this.user) {
+      return this.user.getAvatarUrl()
+    }
   }
 
 }

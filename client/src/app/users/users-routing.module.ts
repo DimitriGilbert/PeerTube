@@ -8,12 +8,12 @@ import { UserChannelsComponent } from './user-channels/user-channels.component'
 
 const routes: Routes = [
   {
-    path: "users",
+    path: "users/:id",
     component: UsersComponent,
     canActivateChild: [ MetaGuard ],
     children: [
       {
-        path: ':id/videos',
+        path: 'videos',
         component: UserVideosComponent,
         data: {
           meta: {
@@ -22,7 +22,7 @@ const routes: Routes = [
         }
       },
       {
-        path: ':id/channels',
+        path: 'channels',
         component: UserChannelsComponent,
         data: {
           meta: {

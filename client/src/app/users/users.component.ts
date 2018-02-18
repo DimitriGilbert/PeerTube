@@ -31,10 +31,5 @@ export class UsersComponent implements OnInit {
           }
         )
     })
-
-  }
-
-  public getAvatarUrl () {
-    return this.user.getAvatarUrl()
   }
 }
